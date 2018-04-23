@@ -1,0 +1,34 @@
+@import '../public/esy-css.less';
+
+.esy-btn {
+  border-radius: 4px;
+  height: 32px;
+  line-height: 32px;
+  margin-right: 10px;
+  border-color: #eeeeee;
+  cursor: pointer;
+  transition: all 0.3s linear;
+  &.esy-btn-default  {
+    background: @defaultBgColor;
+    color: @defaultFontColor;
+    &:hover {
+      color: @primaryBgColor;
+    }
+  }
+  &.esy-btn-primary  {
+    background: @primaryBgColor;
+    color: @primaryFontColor;
+    &:hover {
+      background: @defaultBgColor;
+      color: @primaryBgColor;
+    }
+  }
+  &.esy-btn-danger  {
+    background: @dangerBgColor;
+    color: @dangerFontColor;
+    &:hover {
+      background: #f5222d;
+      color: #ffffff;
+    }
+  }
+}

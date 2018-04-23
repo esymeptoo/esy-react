@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-
-import './index.less'
+import App from '../examples/App'
 
 ReactDom.render(
-    <div>hello</div>
+    <App/>
     , document.getElementById('root'));

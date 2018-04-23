@@ -1,14 +1,60 @@
 {
-    "compileOnSave": false,
-    "compilerOptions": {
-      "emitDecoratorMetadata": true,
-      "experimentalDecorators": true,
-      "skipLibCheck": true,
-      "noImplicitAny": true,
-      "target": "es5",
-      "lib": [
-        "es2016",
-        "dom"
-      ]
+  "compilerOptions": {
+    "sourceMap": true,
+    "target": "es5",
+    "jsx": "react",
+    "module": "esnext",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "declaration": false,
+    "noImplicitAny": false,
+    "noImplicitReturns": false,
+    "removeComments": true,
+    "strictNullChecks": false,
+    "noUnusedLocals": true,
+    "outDir": ".ts.out",
+    "lib": [
+      "scripthost",
+      "es2015",
+      "es2016",
+      "es2017",
+      "dom",
+      "dom.iterable"
+    ],
+    "typeRoots": ["node_modules/@types", "./typings"],
+    "baseUrl": "./",
+    "paths": {
+      "shared/*": ["src/shared/*"],
+      "web/*": ["src/web/*"],
+      "native/*": ["src/native/*"],
+      "@/*": ["src/*"]
     }
-  }
+  },
+  "awesomeTypescriptLoaderOptions": {
+    "useCache": true,
+    "transpileOnly": false,
+    "errorsAsWarnings": true,
+    "forceIsolatedModules": true,
+    "useTranspileModule": true,
+    "ignoreDiagnostics": [],
+    "reportFiles": [
+      //            "src/web/dashboard/pages/**/*.{ts,tsx}",
+      //            "src/web/dashboard/containers/**/*.{ts,tsx}",
+      //            "src/web/dashboard/components/**/*.{ts,tsx}",
+      //            "src/web/dashboard/components/**/*.{ts,tsx}",
+      //            "src/web/common/**/*.{ts,tsx}",
+      //            "src/shared/**/*.{ts,tsx}"
+    ]
+  },
+  "exclude": [
+    "lib",
+    "dist",
+    "build",
+    "scripts",
+    "node_modules"
+  ]
+}

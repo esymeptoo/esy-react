@@ -19,8 +19,10 @@
   },
   "homepage": "https://github.com/esymeptoo/myComponent#readme",
   "devDependencies": {
+    "@types/react": "^16.3.12",
+    "@types/react-dom": "^16.0.5",
     "autoprefixer": "^8.3.0",
-    "awesome-typescript-loader": "^5.0.0",
+    "awesome-typescript-loader": "^3.2.3",
     "babel-eslint": "^8.2.3",
     "babel-loader": "^7.1.4",
     "babel-plugin-macros": "^2.2.0",
@@ -38,6 +40,7 @@
     "postcss-loader": "^2.1.4",
     "style-loader": "^0.21.0",
     "transform-runtime": "0.0.0",
+    "tslib": "^1.7.1",
     "typescript": "^2.6.2",
     "url-loader": "^1.0.1",
     "webpack": "^2.6.1",
@@ -45,9 +48,11 @@
     "webpack-dev-server": "^2.7.1"
   },
   "dependencies": {
-    "classname": "0.0.0",
-    "react": "^16.3.2",
-    "react-dom": "^16.3.2",
+    "@types/prop-types": "^15.5.2",
+    "classnames": "^2.2.5",
+    "prop-types": "^15.6.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
     "uninstall": "0.0.0"
   }
 }
