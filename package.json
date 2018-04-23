@@ -1,0 +1,50 @@
+{
+  "name": "mycomponent",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "cross-env NODE_ENV=dev webpack-dev-server",
+    "build": "rm -rf build/** && cross-env NODE_ENV=production webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/esymeptoo/myComponent.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/esymeptoo/myComponent/issues"
+  },
+  "homepage": "https://github.com/esymeptoo/myComponent#readme",
+  "devDependencies": {
+    "autoprefixer": "^8.3.0",
+    "awesome-typescript-loader": "^5.0.0",
+    "babel-eslint": "^8.2.3",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-macros": "^2.2.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "extract-text-webpack-plugin": "^2.1.2",
+    "file-loader": "^1.1.11",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "less": "^3.0.2",
+    "less-loader": "^4.1.0",
+    "transform-runtime": "0.0.0",
+    "typescript": "^2.6.2",
+    "url-loader": "^1.0.1",
+    "webpack": "^2.6.1",
+    "webpack-cli": "^2.0.15",
+    "webpack-dev-server": "^2.7.1"
+  },
+  "dependencies": {
+    "classname": "0.0.0",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "uninstall": "0.0.0"
+  }
+}
