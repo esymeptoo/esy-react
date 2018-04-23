@@ -1,10 +1,11 @@
 const path = require('path'),
+    env = process.env.NODE_ENV,
     autoprefixer = require('autoprefixer'),
     HtmlWebpackPlugin = require('html-webpack-plugin'),
     webpack = require('webpack'),
-    ExtractTextPlugin = require("extract-text-webpack-plugin"),
-    extractVendor = new ExtractTextPlugin('css/vendor.css'), // 抽取bootstrap和font-awesome公共样式
-    extractStyle = new ExtractTextPlugin('css/style.css'); // 抽取自定义样式
+    ExtractTextPlugin = require("extract-text-webpack-plugin")
+    // extractVendor = new ExtractTextPlugin('css/vendor.css'), // 抽取bootstrap和font-awesome公共样式
+    // extractStyle = new ExtractTextPlugin('css/style.css'); // 抽取自定义样式
 
 const _postCss = {
     sourceMap: true,
@@ -16,78 +17,49 @@ const _postCss = {
 }
 module.exports = {
     entry: process.env.NODE_ENV === 'production' ? {
-        app: './index.tsx',
+        index: path.join(__dirname, 'examples/index.tsx'),
         vendor: ['react', 'react-dom']
     } : [
             'webpack-dev-server/client?http://localhost:8080',
             'webpack/hot/only-dev-server',
-            './index.tsx'
+            path.join(__dirname, './examples/index.tsx')
         ],
     output: {
-        filename: 'bundle.[hash].js',
+        filename: 'static/[name].js',
         path: path.resolve(__dirname, './build'),
-        publicPath: '',
+        publicPath: '../',
         // chunkFilename: "chunk.[name].[chunkhash].js" // 对于按需加载的模块，都不会写在entry入口文件中，chunkFilename是给这些按需加载模块的命名规则
     },
     context: __dirname,
     module: {
         rules: [{
-            test: /\.css/,
-            use: process.env.NODE_ENV === 'production' ? extractVendor.extract({ fallback: "style-loader", use: [
-                {
-                    loader: 'css-loader',
-                    options: {
-                        minimize: true
-                    }
-                }, {
-                    loader: 'postcss-loader',
-                    options: _postCss
-                }
-            ] }) : [{
-                loader: 'style-loader'
-            },
-            {
-                loader: 'css-loader',
-                options: {
-                    importLoaders: 2
-                }
-            }, {
-                loader: 'postcss-loader',
-                options: _postCss
-            }]
-        }, {
             test: /\.less$/,
-            use: process.env.NODE_ENV === 'production' ? extractStyle.extract({ fallback: "style-loader", use: [
-                {
-                    loader: 'css-loader'
-                }, {
-                    loader: 'postcss-loader',
-                    options: _postCss
-                }, {
-                    loader: 'less-loader'
+            use: env === 'dev' ? ['style-loader', 'css-loader', {
+                loader: 'postcss-loader',
+                options: {
+                    plugins: [require('autoprefixer')({
+                        browsers: [
+                            'Android > 4',
+                            'iOS > 8'
+                        ]
+                    })]
                 }
-            ] }) : [
-                {
-                    loader: 'style-loader'
-                },
-                {
-                    loader: 'css-loader',
-                    options: {
-                        sourceMap: true,
-                        importLoaders: 1
-                    }
-                },
-                {
+            }, 'less-loader']
+            : ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                use: ['css-loader', {
                     loader: 'postcss-loader',
-                    options: _postCss
-                },
-                {
-                    loader: 'less-loader',
                     options: {
-                        sourceMap: true
+                        plugins: [require('autoprefixer')({
+                            browsers: [
+                                'Android > 4',
+                                'iOS > 8'
+                            ]
+                        })]
                     }
-                }
-            ]
+                }, 'less-loader'],
+                publicPath: '/static'
+            })
         }, {
             test: /\.(jpg|png)$/, // 处理.png和.jpg格式的图片文件
             use: [
@@ -116,10 +88,9 @@ module.exports = {
 
         new HtmlWebpackPlugin({
             template: './index.html',
-            filename: 'index.html'
+            filename: 'html/index.html'
         }),
-        extractVendor,
-        extractStyle,
+        new ExtractTextPlugin('static/[name].css'),
         new webpack.DefinePlugin({
             'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
         }),
@@ -140,7 +111,7 @@ module.exports = {
     ] : [
             new HtmlWebpackPlugin({
                 template: 'index.html',
-                filename: 'index.html'
+                filename: 'html/index.html'
             }),
             new webpack.HotModuleReplacementPlugin(),
             new webpack.NamedModulesPlugin(),
@@ -155,6 +126,6 @@ module.exports = {
     },
     devtool: 'source-map',
     resolve: {
-        extensions: ['.js', '.less', '.html', '.jsx']
+        extensions: ['.js', '.less', '.html', '.jsx', '.tsx', 'ts']
     }
 };
