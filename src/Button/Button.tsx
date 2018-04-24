@@ -3,8 +3,9 @@
 */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import clx from 'classnames'
-import './Button.less'
+import clx from 'classnames';
+import './Button.less';
+import Icon from '../Icon/Icon';
 
 import Ripple from '../hUI-ripple'
 
@@ -22,6 +23,7 @@ export interface ButtonProps {
     label?: string | React.ReactNode;
     prefixCls?: string;
     size?: Size;
+    icon?: string;
 }
 
 export interface ButtonState {
@@ -42,7 +44,8 @@ export default class Button extends Component<ButtonProps, ButtonState> {
         onMouseLeave: PropTypes.func,
         label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
         others: PropTypes.number,
-        size: PropTypes.string
+        size: PropTypes.string,
+        icon: PropTypes.string
     };
 
     static defaultProps = {
@@ -76,7 +79,9 @@ export default class Button extends Component<ButtonProps, ButtonState> {
             onMouseLeave,
             prefixCls,
             className,
-            size } = this.props;
+            size = 'small',
+            icon = ''
+        } = this.props;
 
         let sizeCli = '';
 
@@ -96,7 +101,8 @@ export default class Button extends Component<ButtonProps, ButtonState> {
 
         const classes = clx(prefixCls, className, {
             [`${prefixCls}-${type}`]: type,
-            [`${prefixCls}-${sizeCli}`]: sizeCli
+            [`${prefixCls}-${sizeCli}`]: sizeCli,
+            'disabled': disabled
         });
 
         return (
@@ -109,6 +115,11 @@ export default class Button extends Component<ButtonProps, ButtonState> {
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
             >
+                {
+                    icon ? (
+                        <Icon type={icon} />
+                    ) : null
+                }
                 {label}
             </button>
         )

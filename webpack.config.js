@@ -27,7 +27,7 @@ module.exports = {
     output: {
         filename: 'static/[name].js',
         path: path.resolve(__dirname, './build'),
-        publicPath: '../',
+        publicPath: '/',
     },
     context: __dirname,
     module: {
@@ -124,7 +124,7 @@ module.exports = {
         }),
         new webpack.optimize.CommonsChunkPlugin({
             name: "vendor", // 模块名
-            filename: "vendor.js",
+            filename: "static/vendor.js",
             minChunks: Infinity,
         }),
     ] : [

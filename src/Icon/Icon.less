@@ -1,0 +1,36 @@
+@import '../public/esy-css.less';
+@import '../public/reset.less';
+
+.computeWH(@width) {
+  width: @width;
+  height: @width;
+  background-size: @width @width;
+}
+
+.esy-icon {
+  display: inline-block;
+  overflow: hidden;
+  font-style: normal;
+  vertical-align: baseline;
+  margin-right: 6px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  &.esy-icon-mini {
+    .computeWH(@mini_icon);
+  }
+  &.esy-icon-small {
+    .computeWH(@small_icon);
+  }
+  &.esy-icon-large {
+    .computeWH(@large_icon);
+  }
+}
+
+
+.esy-icon-home {
+  background-image: url(./icon_resource/home.png);
+}
+
+.esy-icon-share {
+  background-image: url(./icon_resource/share.png);
+}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Module from './Module';
-import Button from '../src/Button/Button'
+import Button from '../src/Button/Button';
+import Icon from '../src/Icon/Icon';
 
 export default class App extends Component {
     constructor(props) {
@@ -8,7 +9,7 @@ export default class App extends Component {
         this.handleClick = this.handleClick.bind(this)
     }
     handleClick() {
-        console.log(1)
+        console.log('i am a hook')
     }
     render() {
         return (
@@ -26,6 +27,8 @@ export default class App extends Component {
                         label="标准"
                         type="primary"
                         size="small"
+                        icon="home"
+                        // disabled={true}
                     />
                     <Button
                         label={
@@ -33,6 +36,22 @@ export default class App extends Component {
                         }
                         type="danger"
                         size="large"
+                        disabled={true}
+                    />
+                </Module>
+                <Module
+                    title="图标"
+                >
+                    <Icon
+                        type="share"
+                        width="20"
+                        height="20"
+                    />
+                    <Icon
+                        type="home"
+                        width="30"
+                        height="30"
+                        onClick={this.handleClick}
                     />
                 </Module>
             </div>

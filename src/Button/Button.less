@@ -3,10 +3,8 @@
 
 .esy-btn {
   position: relative;
-  border-radius: 4px;
-  line-height: 1.5;
+  border-radius: 2px;
   cursor: pointer;
-  display: inline-block;
   transition: box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.4s ease-out;
   font-size: 15px;
   padding: 0 10px;
@@ -15,6 +13,8 @@
   overflow: hidden;
   border-width: 0;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  display: inline-block;
+  white-space: nowrap;
   &.esy-btn-default  {
     background: @defaultBgColor;
     color: @defaultFontColor;
@@ -43,14 +43,24 @@
   }
   &.esy-btn-mi {
     height: @mini_height;
+    line-height: @mini_height;
     font-size: @mini_font_size;
   }
   &.esy-btn-sm {
     height :@small_height;
+    line-height :@small_height;
     font-size: @small_font_size;
   }
   &.esy-btn-lg {
     height: @large_height;
+    line-height: @large_height;
     font-size: @large_font_size;
+  }
+  &.disabled, &.disabled:hover {
+    background: #f5f5f5;
+    color: rgba(0,0,0,.25);
+  }
+  & > .esy-icon {
+    vertical-align: middle;
   }
 }
