@@ -17,12 +17,12 @@ const _postCss = {
 }
 module.exports = {
     entry: process.env.NODE_ENV === 'production' ? {
-        index: path.join(__dirname, 'examples/index.tsx'),
+        index: path.join(__dirname, 'examples/Pagination.tsx'),
         vendor: ['react', 'react-dom']
     } : [
             'webpack-dev-server/client?http://localhost:8080',
             'webpack/hot/only-dev-server',
-            path.join(__dirname, './examples/index.tsx')
+            path.join(__dirname, './examples/Pagination.tsx')
         ],
     output: {
         filename: 'static/[name].js',

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Module from './Module';
 import Button from '../src/Button/Button';
 import Icon from '../src/Icon/Icon';
+import Pagination from '../src/Pagination'
 
 export default class App extends Component {
     constructor(props) {
@@ -52,6 +53,16 @@ export default class App extends Component {
                         width="30"
                         height="30"
                         onClick={this.handleClick}
+                    />
+                </Module>
+                <Module
+                    title="分页"
+                >
+                    <Pagination
+                        type="mini"
+                        total={100}
+                        pageSize={9}
+                        current={2}
                     />
                 </Module>
             </div>
