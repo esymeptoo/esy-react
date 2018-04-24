@@ -1,0 +1,110 @@
+// Function
+//-- Must be defined before variables
+@function rem($multiplier) {
+  $font-size: 10px;
+  @return $multiplier * $font-size;
+}
+
+// Typography
+// ------------------------------
+$font-family: "PingFang SC", "Microsoft YaHei", "\5FAE\8F6F\96C5\9ED1", "HiraginoSansGBW3", "Helvetica Neue", "Helvetica", sans-serif !default;
+$font-size:   13px !default;
+
+$data-chart-font-size-base:     rem(3.00) !default;
+$data-tab-font-size-base:       rem(2.20) !default;
+$list-title-font-size-base:     rem(1.60) !default;
+$group-data-tab-font-size-base: rem(1.60) !default;
+$text-font-size-base:           rem(1.40) !default;
+$list-value-font-size-base:     rem(1.30) !default;
+$data-title-size-base:          rem(1.20) !default;
+$tiny-font-size-base:           rem(1.00) !default;
+
+
+// z-index
+//--------------------------------------------
+$base-index: 1;
+$icon-index: 2;
+$popup-index: 10;
+$toast-index: 11;
+$chart-index: 49;
+$mask-index: 99;
+
+// colors
+$white-color:                             #FFFFFF;
+$black-color:                             #000000;
+$left-nav-background-color-light:         #232431;
+$left-nav-background-color-dark:          #20212E;
+$container-color:                         #2B2C3D;
+$container-color-light:                   #F0F0F0;
+$card-background-color:                   #303146;
+$card-hover-background-color:             #35364E;
+$chart-grid-color:                        #3C3D50;
+$theme-color:                             #7CA7FF;
+$theme-dark-color:                        #5784E1;
+$campaign-refer-color:                    #FF6969;
+$campaign-reger-chart-line-end-color:     #F55050;
+$campaign-birthday-color:                 #FF7C9E;
+$campaign-birthday-chart-line-end-color:  #EC5D82;
+$campaign-manual-color:                   #FFB97B;
+$campaign-manual-chart-line-end-color:    #E8A264;
+$campaign-autopilot-color:                #18C69F;
+$campaign-autopilot-chart-line-end-color: #079770;
+$points-reward-color:                     #67A4FA;
+$points-reward-chart-line-end-color:      #13C2D2;
+$points-milestone-color:                  #FFE172;
+$points-milestone-chart-line-end-color:   #E9AF3A;
+$membership-new-color:                    #64F8D9;
+$membership-regular-color:                #FE9863;
+$membership-risk-color:                   #FFDA8D;
+$membership-lapsed-color:                 #979797;
+$gender-male-color:                       #67A4FA;
+$gender-female-color:                     #F578B9;
+$info-success-color:                      #72C683;
+$info-warn-color:                         #FF6969;
+$info-warn-dark-color:                    #F55F5F;
+$theme-success-color:                     #13C69F;
+$theme-success-dark-color:                #11AE8C;
+$theme-action-color:                      #FFA543;
+$theme-action-dark-color:                 #E48D2E;
+
+//light theme colors
+$theme-light-color-dark:                  #36475A;
+$theme-light-color:                       #5E6C7B;
+$theme-light-color-medium:                #86919C;
+$theme-light-color-light:                 #AFB5BD;
+$theme-light-color-hover:                 #F8F8FA;
+$theme-light-background-color:            #FCFCFD;
+
+$hover-background-color-on-dark:          rgba(255,255,255,.04);
+$hover-background-color-on-light:         rgba(0,0,0,.06);
+
+
+// Easing Curves
+//--------------------------------------------
+$slow-swift-ease-out-duration: 0.45s;
+$slow-swift-ease-out-timing-function: cubic-bezier(0.35, 0, 0.25, 1);
+$slow-swift-ease-out: all $slow-swift-ease-out-duration $slow-swift-ease-out-timing-function !default;
+
+$swift-ease-out-duration: 0.4s !default;
+$swift-ease-out-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
+$swift-ease-out: all $swift-ease-out-duration $swift-ease-out-timing-function !default;
+
+$swift-ease-in-duration: 0.3s !default;
+$swift-ease-in-timing-function: cubic-bezier(0.55, 0, 0.55, 0.2) !default;
+$swift-ease-in: all $swift-ease-in-duration $swift-ease-in-timing-function !default;
+
+$swift-ease-in-out-duration: 0.5s !default;
+$swift-ease-in-out-timing-function: cubic-bezier(0.35, 0, 0.25, 1) !default;
+$swift-ease-in-out: all $swift-ease-in-out-duration $swift-ease-in-out-timing-function !default;
+
+$swift-linear-duration: 0.08s !default;
+$swift-linear-timing-function: linear !default;
+$swift-linear: all $swift-linear-duration $swift-linear-timing-function !default;
+
+$material-enter-duration: 0.3s;
+$material-enter-timing-function: cubic-bezier(0.0, 0.0, 0.2, 1);
+$material-enter: all $material-enter-duration $material-enter-timing-function;
+
+$material-leave-duration: 0.3s;
+$material-leave-timing-function: cubic-bezier(0.4, 0.0, 1, 1);
+$material-leave: all $material-leave-duration $material-leave-timing-function;

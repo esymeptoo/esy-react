@@ -1,31 +1,40 @@
 import React, { Component } from 'react';
-import {Button} from '@src/index'
+import Module from './Module';
+import Button from '../src/Button/Button'
 
 export default class App extends Component {
+    constructor(props) {
+        super(props);
+        this.handleClick = this.handleClick.bind(this)
+    }
+    handleClick() {
+        console.log(1)
+    }
     render() {
         return (
             <div>
-                <Button
-                    // label="测试按钮"
-                    type="default"
-                    label={
-                        <span>默认按钮</span>
-                    }
-                />
-                <Button
-                    // label="测试按钮"
-                    type="primary"
-                    label={
-                        <span>常用按钮</span>
-                    }
-                />
-                <Button
-                    // label="测试按钮"
-                    type="danger"
-                    label={
-                        <span>危险按钮</span>
-                    }
-                />
+                <Module
+                    title="按钮"
+                >
+                    <Button
+                        label="默认"
+                        type="default"
+                        size="mini"
+                        onClick={this.handleClick}
+                    />
+                    <Button
+                        label="标准"
+                        type="primary"
+                        size="small"
+                    />
+                    <Button
+                        label={
+                            <span>危险</span>
+                        }
+                        type="danger"
+                        size="large"
+                    />
+                </Module>
             </div>
         )
     }

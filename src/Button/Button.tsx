@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 import clx from 'classnames'
 import './Button.less'
 
+import Ripple from '../hUI-ripple'
+
 
 export type ButtonType = 'default' | 'primary' | 'danger'
 
@@ -17,13 +19,16 @@ export interface ButtonProps {
     onClick?: React.FormEventHandler<any>;
     onMouseEnter?: React.FormEventHandler<any>;
     onMouseLeave?: React.FormEventHandler<any>;
-    label?: React.ReactHTML;
+    label?: string | React.ReactNode;
     prefixCls?: string;
+    size?: Size;
 }
 
 export interface ButtonState {
-    loading: boolean
+    loading?: boolean
 }
+
+export type Size = 'mini' | 'small' | 'large'
 
 
 export default class Button extends Component<ButtonProps, ButtonState> {
@@ -35,8 +40,9 @@ export default class Button extends Component<ButtonProps, ButtonState> {
         onClick: PropTypes.func,
         onMouseEnter: PropTypes.func,
         onMouseLeave: PropTypes.func,
-        label: PropTypes.node,
-        others: PropTypes.number
+        label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+        others: PropTypes.number,
+        size: PropTypes.string
     };
 
     static defaultProps = {
@@ -52,20 +58,51 @@ export default class Button extends Component<ButtonProps, ButtonState> {
         };
     }
 
-    componentWillMount () {
-
+    componentDidMount () {
+        if (this.domEl) {
+            new Ripple(this.domEl, {
+                dimBackground: false,
+            });
+        }
     }
 
     render() {
-        const { type, disabled, style, label, onClick, onMouseEnter, onMouseLeave, prefixCls, className } = this.props;
+        const { type,
+            disabled,
+            style,
+            label,
+            onClick,
+            onMouseEnter,
+            onMouseLeave,
+            prefixCls,
+            className,
+            size } = this.props;
+
+        let sizeCli = '';
+
+        switch(size) {
+            case 'mini':
+                sizeCli = 'mi';
+                break;
+            case 'small':
+                sizeCli = 'sm';
+                break;
+            case 'large':
+                sizeCli = 'lg';
+                break;
+            default:
+                sizeCli = 'sm'
+        }
+
         const classes = clx(prefixCls, className, {
-            [`${prefixCls}-${type}`]: type
+            [`${prefixCls}-${type}`]: type,
+            [`${prefixCls}-${sizeCli}`]: sizeCli
         });
 
         return (
             <button
                 className={classes}
-                ref={el => { this.btnDom = el }}
+                ref={el => { this.domEl = el }}
                 disabled={disabled}
                 style={style}
                 onClick={onClick}

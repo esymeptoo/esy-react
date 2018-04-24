@@ -1,13 +1,20 @@
 @import '../public/esy-css.less';
+@import '../public/reset.less';
 
 .esy-btn {
+  position: relative;
   border-radius: 4px;
-  height: 32px;
-  line-height: 32px;
-  margin-right: 10px;
-  border-color: #eeeeee;
+  line-height: 1.5;
   cursor: pointer;
-  transition: all 0.3s linear;
+  display: inline-block;
+  transition: box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.4s ease-out;
+  font-size: 15px;
+  padding: 0 10px;
+  margin: 10px;
+  outline: none;
+  overflow: hidden;
+  border-width: 0;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
   &.esy-btn-default  {
     background: @defaultBgColor;
     color: @defaultFontColor;
@@ -30,5 +37,20 @@
       background: #f5222d;
       color: #ffffff;
     }
+  }
+  &:focus {
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.26);
+  }
+  &.esy-btn-mi {
+    height: @mini_height;
+    font-size: @mini_font_size;
+  }
+  &.esy-btn-sm {
+    height :@small_height;
+    font-size: @small_font_size;
+  }
+  &.esy-btn-lg {
+    height: @large_height;
+    font-size: @large_font_size;
   }
 }

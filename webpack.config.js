@@ -27,7 +27,7 @@ module.exports = {
     output: {
         filename: 'static/[name].js',
         path: path.resolve(__dirname, './build'),
-        publicPath: '',
+        publicPath: '../',
     },
     context: __dirname,
     module: {
@@ -59,6 +59,34 @@ module.exports = {
                 }, 'less-loader'],
                 publicPath: '/static'
             })
+        }, {
+            test: /\.scss/,
+            use: env === 'dev' ? ['style-loader', 'css-loader', {
+                    loader: 'postcss-loader',
+                    options: {
+                        plugins: [require('autoprefixer')({
+                            browsers: [
+                                'Android > 4',
+                                'iOS > 8'
+                            ]
+                        })]
+                    }
+                }, 'sass-loader']
+                : ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: ['css-loader', {
+                        loader: 'postcss-loader',
+                        options: {
+                            plugins: [require('autoprefixer')({
+                                browsers: [
+                                    'Android > 4',
+                                    'iOS > 8'
+                                ]
+                            })]
+                        }
+                    }, 'sass-loader'],
+                    publicPath: '/static'
+                })
         }, {
             test: /\.(jpg|png)$/,
             use: [
@@ -115,12 +143,12 @@ module.exports = {
         hot: true,
         noInfo: false
     },
-    devtool: 'source-map',
+    // devtool: 'source-map',
     resolve: {
-        extensions: ['.js', '.less', '.html', '.jsx', '.tsx', '.ts'],
+        extensions: ['.js', '.tsx', '.ts'],
         alias: {
-            '@src': path.resolve(__dirname, 'src'),
-            '@examples': path.resolve(__dirname, 'examples')
+            '@src': path.resolve(__dirname, './src'),
+            '@examples': path.resolve(__dirname, './examples')
         }
     }
 };
