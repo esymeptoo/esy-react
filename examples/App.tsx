@@ -3,12 +3,17 @@ import Module from './Module';
 import Button from '../src/Button/Button';
 import Icon from '../src/Icon/Icon';
 import Pagination from '../src/Pagination'
+import Input from '../src/Input';
 
 export default class App extends Component {
     constructor(props) {
         super(props);
-        this.handleClick = this.handleClick.bind(this)
+        this.state = {
+            inputValue: 'test'
+        };
+        this.handleClick = this.handleClick.bind(this);
         this.handlePaginationChange = this.handlePaginationChange.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
     }
     handleClick() {
         console.log('i am a hook')
@@ -18,7 +23,14 @@ export default class App extends Component {
         console.log('choose page:' + page);
     }
 
+    handleInputChange(val) {
+        this.setState({
+            inputValue: val
+        })
+    }
+
     render() {
+        const { inputValue } = this.state;
         return (
             <div>
                 <Module
@@ -50,11 +62,6 @@ export default class App extends Component {
                     title="图标"
                 >
                     <Icon
-                        type="share"
-                        width="20"
-                        height="20"
-                    />
-                    <Icon
                         type="home"
                         width="30"
                         height="30"
@@ -64,14 +71,38 @@ export default class App extends Component {
                 <Module
                     title="分页"
                 >
+                    <div style={{textAlign: 'center'}}>
+                        <Pagination
+                            type="mini"
+                            total={170}
+                            pageSize={9}
+                            current={1}
+                            showNum={6}
+                            showProcess={true}
+                            onChange={this.handlePaginationChange}
+                        />
+                    </div>
                     <Pagination
                         type="mini"
-                        total={100}
+                        total={170}
                         pageSize={9}
-                        current={12}
-                        showNum={2}
+                        current={1}
+                        showNum={6}
+                        showProcess={false}
                         onChange={this.handlePaginationChange}
                     />
+                </Module>
+                <Module
+                    title="表单"
+                >
+                    <Input
+                        value={inputValue}
+                        onChange={this.handleInputChange}
+                        placeholder="简单的input标签"
+                        autoFocus={true}
+                        size="large"
+                        onPressEnter={() => {console.log('>>>')}}
+                        disabled={false}/>
                 </Module>
             </div>
         )

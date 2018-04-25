@@ -15,6 +15,7 @@ export interface PaginationProps {
     size?: string;
     total?: number;
     defaultCurrent?: number;
+    style?: React.CSSProperties;
     /*
     * 当前位置
     * */
@@ -31,6 +32,10 @@ export interface PaginationProps {
     * 是否展示快速跳转控件
     * */
     showQuickJumper?: boolean;
+    /*
+    * 是否展示当前页数/总页数
+    * */
+    showProcess?: boolean;
     quickJumpText?: string;
     showTotal?: boolean;
     className?: string;
@@ -64,7 +69,8 @@ export default class Pagination extends Component<PaginationProps, PaginationSta
         /*
         * 默认显示快速跳转
         * */
-        quickJumpText: true
+        quickJumpText: true,
+        showProcess: false
     };
 
     constructor(props) {
@@ -176,9 +182,18 @@ export default class Pagination extends Component<PaginationProps, PaginationSta
     render() {
         const {
             type = 'mini',
+            total,
+            pageSize,
+            showProcess = false,
+            style = {}
         } = this.props;
+        const { current } = this.state;
+        const pageTotal = Math.ceil(total / pageSize);
         return (
-            <div className="esy-pagination">
+            <div className="esy-pagination" style={style}>
+                {
+                    showProcess ? <span>{ current + ' / ' + pageTotal}</span> : null
+                }
                 {
                     type == 'mini' ? this.renderMiniPagination() : this.renderNormalPagination()
                 }
