@@ -69,6 +69,7 @@ export default class App extends Component {
                         total={100}
                         pageSize={9}
                         current={12}
+                        showNum={2}
                         onChange={this.handlePaginationChange}
                     />
                 </Module>
