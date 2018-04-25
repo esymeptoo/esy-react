@@ -1,18 +1,47 @@
 @import '../public/esy-css.less';
 @import '../public/reset.less';
 
+* {
+  -webkit-user-select: none;
+}
+
 .esy-pagination {
   display: inline-block;
   & > .esy-pagination-mini {
-    border: 1px solid red;
     ul {
       li {
         list-style: none;
         display: inline-block;
-        width: 20px;
+        vertical-align: bottom;
+        width: 30px;
         height: 26px;
-        font-size: 15px;
-        margin-right: 10px;
+        line-height: 26px;
+        font-size: 14px;
+        font-weight: 400;
+        //margin-right: 10px;
+        text-align: center;
+        &:hover {
+          cursor: pointer;
+          background-color: rgba(0, 0, 0, 0.06);
+        }
+        &.esy-pagination-left, &.esy-pagination-right {
+          background-image: url(../public/images/left.png);
+          background-repeat: no-repeat;
+          background-size: 40% 40%;
+          background-position: center center;
+        }
+        &.esy-pagination-right {
+          transform: rotate(180deg);
+        }
+        &.esy-pagination-disabled {
+          color: black;
+          background: white;
+          //background: transparent;
+          //opacity: 0.3;
+          &:hover {
+            color: #AFB5BD;
+          }
+        }
       }
     }
   }
@@ -20,4 +49,9 @@
   & > .esy-pagination-normal {
 
   }
+}
+
+.esy-pagination-active {
+  color: #7CA7FF;
+  background-color: rgba(0, 0, 0, 0.06);
 }

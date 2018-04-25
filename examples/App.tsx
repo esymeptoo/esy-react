@@ -8,10 +8,16 @@ export default class App extends Component {
     constructor(props) {
         super(props);
         this.handleClick = this.handleClick.bind(this)
+        this.handlePaginationChange = this.handlePaginationChange.bind(this);
     }
     handleClick() {
         console.log('i am a hook')
     }
+
+    handlePaginationChange(page) {
+        console.log('choose page:' + page);
+    }
+
     render() {
         return (
             <div>
@@ -62,7 +68,8 @@ export default class App extends Component {
                         type="mini"
                         total={100}
                         pageSize={9}
-                        current={2}
+                        current={12}
+                        onChange={this.handlePaginationChange}
                     />
                 </Module>
             </div>

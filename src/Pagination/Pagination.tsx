@@ -26,7 +26,7 @@ export interface PaginationProps {
     /*
     * 页码change事件
     * */
-    onChange?: (page: number, pageSize?: number) => void;
+    onChange?: (payload: ChangePage, event) => void;
     /*
     * 是否展示快速跳转控件
     * */
@@ -42,8 +42,11 @@ export interface PaginationProps {
 }
 
 export interface PaginationState {
-    leftDisabled?: boolean;
-    rightDisabled?: boolean;
+    current?: number;
+}
+
+export interface ChangePage {
+    page: number;
 }
 
 export default class Pagination extends Component<PaginationProps, PaginationState> {
@@ -67,54 +70,87 @@ export default class Pagination extends Component<PaginationProps, PaginationSta
     constructor(props) {
         super(props);
         this.state = {
-            leftDisabled: false,
-            rightDisabled: false
+            current: this.props.current,
+        };
+        this.clickLeftBtn = this.clickLeftBtn.bind(this);
+        this.updateActivePage = this.updateActivePage.bind(this);
+    }
+
+    updateActivePage(page, event) {
+        this.setState({
+            current: page
+        });
+        this.props.onChange && this.props.onChange(page, event)
+    }
+
+    clickLeftBtn(event) {
+        const {current} = this.state;
+        if (current !== 1) {
+            this.updateActivePage(current - 1, event)
         }
     }
 
-    renderLeft() {
-        return (
-            <li className="esy-pagination-left">
-                <a>{'<'}</a>
-            </li>
-        )
+    clickRightBtn(arrayPage, event) {
+        const {current} = this.state;
+        if (current !== arrayPage.length) {
+            this.updateActivePage(current + 1, event)
+        }
     }
 
-    renderRight() {
-        return (
-            <li className="esy-pagination-right">
-                <a>{'>'}</a>
-            </li>
-        )
+    clickSingleBtn(page, event) {
+        this.updateActivePage(page, event)
     }
 
-    renderMini(arrayPage, total, pageSize) {
-        console.log(arrayPage, total, pageSize);
-        const { current, prefixCli } = this.props;
+    /*
+    * 渲染miniPagination组件基础样式
+    * */
+    renderMini(arrayPage) {
+        const { prefixCli, showNum } = this.props;
+        const { current } = this.state;
         /*计算当前应该展示的页面数组*/
+        // 例如: [[1, 2, 3, 4, 5], [6, 7, 8, 9, 10], [11]]
+        let needPageNum = [];
+        arrayPage.forEach((item, index) => {
+            if (index % showNum === 0) {
+                needPageNum[(Math.floor(index/showNum))] = [];
+            }
+            needPageNum[(Math.floor(index/showNum))].push(item);
+        });
         return (
             <ul>
                 {
-                    this.renderLeft()
+                    <li className={clx('esy-pagination-left', {
+                        [`${prefixCli}-disabled`]: current === 1
+                    })} onClick={this.clickLeftBtn}>
+                        <a/>
+                    </li>
                 }
                 {
-                    arrayPage.map((page, index) => {
+                    needPageNum[Math.floor((current - 1) / showNum)].map((page, index) => {
                         return (
                             <li key={index} className={clx(prefixCli, {
-                                [`${prefixCli}-active`]: (index + 1 === current)
-                            })}>
-                                {page}
+                                [`${prefixCli}-active`]: page === current
+                            })} onClick={() => {this.clickSingleBtn(page, event)}}>
+                                <a>{page}</a>
                             </li>
                         )
                     })
                 }
                 {
-                    this.renderRight()
+                    <li className={clx('esy-pagination-right', {
+                        [`${prefixCli}-disabled`]: current === arrayPage.length
+                    })} onClick={(e) => {this.clickRightBtn(arrayPage, e)}}>
+                        <a/>
+                    </li>
                 }
             </ul>
         )
     }
 
+    /*
+    * 渲染normalPagination组件基础样式
+    * _todo
+    * */
     renderNormal() {
 
     }
@@ -127,7 +163,7 @@ export default class Pagination extends Component<PaginationProps, PaginationSta
         return (
             <div className="esy-pagination-mini">
                 {
-                    arrayPage.length > 0 ? this.renderMini(arrayPage, total, pageSize) : null
+                    arrayPage.length > 0 ? this.renderMini(arrayPage) : null
                 }
             </div>
         )
