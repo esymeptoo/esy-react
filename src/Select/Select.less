@@ -1,0 +1,92 @@
+@import '../public/esy-css.less';
+@import '../public/reset.less';
+
+.esy-select {
+  & > * {
+    -webkit-user-select: none;
+  }
+  display: inline-block;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  margin: 0 8px 10px 0;
+  background: #fff;
+  border-top-width: 1.02px;
+  transition: all 0.3s;
+  width: 200px;
+  position: relative;
+  box-sizing: border-box;
+  line-height: 1.5;
+  font-size: 14px;
+  padding: 0 10px;
+  &:hover {
+    border-color: #40a9ff;
+  }
+  &.esy-select-focused {
+    box-shadow: 0 0 5px 0 #40a9ff;
+  }
+  &.esy-select-mi {
+    height: @ant_small_height;
+    line-height: @ant_small_height;
+  }
+  &.esy-select-sm {
+    height: @ant_default_height;
+    line-height: @ant_default_height;
+  }
+  &.esy-select-lg {
+    height: @ant_large_height;
+    line-height: @ant_large_height;
+  }
+  .esy-select-value {
+    position: relative;
+    .esy-select-position {
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background-image: url(../public/images/up.png);
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      background-position: 0 0;
+      right: 0;
+      top: 50%;
+      transition: transform .3s;
+      transform: translate(0, -50%) rotate(180deg);
+      &.esy-select-position-down {
+        transform: translate(0, -50%) rotate(360deg);
+      }
+    }
+  }
+  .esy-optGroup {
+    position: absolute;
+    z-index: 1001;
+    border: 1px solid #d9d9d9;
+    border-width: 0;
+    background: #fff;
+    border-radius: 4px;
+    left: 0;
+    transition: height 2s linear;
+    overflow: hidden;
+    width: 100%;
+    height: 0;
+    max-height: 274px;
+    transform-origin: right center 0;
+    &.esy-optGroup-mi {
+      top: @ant_small_height + @defaultTop;
+    }
+    &.esy-optGroup-sm {
+      top: @ant_default_height + @defaultTop;
+    }
+    &.esy-optGroup-lg {
+      top: @ant_large_height + @defaultTop;
+    }
+    &.esy-optGroup-focused {
+      height: auto;
+      border-width: 1px;
+    }
+    & > ul{
+      height: 200px;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      width: 110%;
+    }
+  }
+}

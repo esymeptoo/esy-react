@@ -1,11 +1,10 @@
 @import '../public/esy-css.less';
 @import '../public/reset.less';
 
-* {
-  -webkit-user-select: none;
-}
-
 .esy-pagination {
+  & > * {
+    -webkit-user-select: none;
+  }
   display: inline-block;
   span {
     font-size: 14px;

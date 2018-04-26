@@ -4,6 +4,7 @@ import Button from '../src/Button/Button';
 import Icon from '../src/Icon/Icon';
 import Pagination from '../src/Pagination'
 import Input from '../src/Input';
+import Select from '../src/Select';
 
 export default class App extends Component {
     constructor(props) {
@@ -46,7 +47,7 @@ export default class App extends Component {
     render() {
         const { inputValue } = this.state;
         return (
-            <div>
+            <>
                 <Module
                     title="按钮"
                 >
@@ -117,7 +118,7 @@ export default class App extends Component {
                         placeholder="简单的input标签"
                         autoFocus={true}
                         size="large"
-                        onPressEnter={(value) => {console.log('enter input' + value)}}
+                        onPressEnter={(value) => {console.log('enter input:' + value)}}
                         disabled={false}
                         search={true}
                     />
@@ -128,13 +129,33 @@ export default class App extends Component {
                         placeholder="简单的input标签"
                         autoFocus={true}
                         size="small"
-                        onPressEnter={(value) => {console.log('enter input' + value)}}
+                        onPressEnter={(value) => {console.log('enter input:' + value)}}
                         disabled={false}
                         search={true}
-                        onEnterSearch={(value) => {console.log('click search btn' + value)}}
+                        onEnterSearch={(value) => {console.log('click search btn:' + value)}}
                     />
                 </Module>
-            </div>
+                <Module
+                    title="select"
+                >
+                    <Select
+                        defaultValue="select1"
+                    >
+                        <p>111</p>
+                        <p>222</p>
+                        <p>111</p>
+                        <p>222</p>
+                        <p>111</p>
+                        <p>222</p>
+                        <p>111</p>
+                        <p>222</p>
+                        <p>111</p>
+                        <p>222</p>
+                        <p>111</p>
+                        <p>222</p>
+                    </Select>
+                </Module>
+            </>
         )
     }
 }

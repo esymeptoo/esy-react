@@ -29,6 +29,14 @@ module.exports = {
         path: path.resolve(__dirname, './build'),
         publicPath: '/',
     },
+    resolve: {
+        modules: ['node_modules', path.join(__dirname, '../node_modules')],
+        extensions: ['.tsx', '.ts', '.js'],
+        alias: {
+            '@src': path.resolve(__dirname, './src'),
+            '@examples': path.resolve(__dirname, './examples')
+        }
+    },
     context: __dirname,
     module: {
         rules: [{
@@ -144,11 +152,5 @@ module.exports = {
         noInfo: false
     },
     // devtool: 'source-map',
-    resolve: {
-        extensions: ['.js', '.tsx', '.ts'],
-        alias: {
-            '@src': path.resolve(__dirname, './src'),
-            '@examples': path.resolve(__dirname, './examples')
-        }
-    }
+
 };

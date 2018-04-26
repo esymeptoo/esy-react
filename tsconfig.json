@@ -28,10 +28,7 @@
     "typeRoots": ["node_modules/@types", "./typings"],
     "baseUrl": "./",
     "paths": {
-      "shared/*": ["src/shared/*"],
-      "web/*": ["src/web/*"],
-      "native/*": ["src/native/*"],
-      "@/*": ["src/*"]
+      "src/*": ["src/*"]
     }
   },
   "awesomeTypescriptLoaderOptions": {
