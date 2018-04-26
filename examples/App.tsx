@@ -5,6 +5,7 @@ import Icon from '../src/Icon/Icon';
 import Pagination from '../src/Pagination'
 import Input from '../src/Input';
 import Select from '../src/Select';
+import Option from '../src/Select/Option';
 
 export default class App extends Component {
     constructor(props) {
@@ -139,20 +140,13 @@ export default class App extends Component {
                     title="select"
                 >
                     <Select
-                        defaultValue="select1"
+                        defaultValue="测试option1"
                     >
-                        <p>111</p>
-                        <p>222</p>
-                        <p>111</p>
-                        <p>222</p>
-                        <p>111</p>
-                        <p>222</p>
-                        <p>111</p>
-                        <p>222</p>
-                        <p>111</p>
-                        <p>222</p>
-                        <p>111</p>
-                        <p>222</p>
+                        <Option label="key1">测试option1</Option>
+                        <Option label="key2">测试option2</Option>
+                        <Option label="key3">测试option3</Option>
+                        <Option label="key4">测试option4</Option>
+                        <Option label="key5">测试option5</Option>
                     </Select>
                 </Module>
             </>

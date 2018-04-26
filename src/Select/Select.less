@@ -83,10 +83,18 @@
       border-width: 1px;
     }
     & > ul{
-      height: 200px;
       overflow-y: scroll;
       overflow-x: hidden;
       width: 110%;
+      li {
+        &:hover {
+          cursor: pointer;
+          background-color: rgba(0, 0, 0, 0.06);
+        }
+        &.esy-option-active {
+          background-color: rgba(0, 0, 0, 0.06);
+        }
+      }
     }
   }
 }

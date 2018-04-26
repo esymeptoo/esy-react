@@ -23,7 +23,7 @@ export interface LabelValue {
 export type SelectValue = string | any[] | LabelValue | LabelValue[];
 
 export interface SelectProps extends CommonSelectProps{
-    defaultValue?: SelectValue;
+    defaultValue?: string;
     onChange?: (value: SelectValue) => void;
 }
 
@@ -32,6 +32,7 @@ export interface SelectState {
     * 是就弹出optGroup
     * */
     focused?: boolean;
+    value?: string;
 }
 
 export default class Select extends Component<SelectProps, SelectState> {
@@ -39,7 +40,8 @@ export default class Select extends Component<SelectProps, SelectState> {
     constructor(props) {
         super(props);
         this.state = {
-            focused: false
+            focused: false,
+            value: this.props.defaultValue
         };
         this.clickHeader = this.clickHeader.bind(this);
     }
@@ -82,10 +84,10 @@ export default class Select extends Component<SelectProps, SelectState> {
 
     renderOptionGroup() {
         const { children, size } = this.props;
-        const { focused } = this.state;
+        const { focused, value } = this.state;
         return <OptGroup size={size} className={clx({
             'esy-optGroup-focused': focused
-        })}>
+        })} value={value}>
             {children}
         </OptGroup>
     }
