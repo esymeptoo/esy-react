@@ -44,7 +44,7 @@ export default class Button extends Component<ButtonProps, ButtonState> {
         onMouseLeave: PropTypes.func,
         label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
         others: PropTypes.number,
-        size: PropTypes.string,
+        size: PropTypes.oneOf(['mini', 'small', 'large']),
         icon: PropTypes.string
     };
 

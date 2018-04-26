@@ -48,6 +48,7 @@ export interface PaginationProps {
 
 export interface PaginationState {
     current?: number;
+    totalPage?: number;
 }
 
 export interface ChangePage {
@@ -70,23 +71,30 @@ export default class Pagination extends Component<PaginationProps, PaginationSta
         * 默认显示快速跳转
         * */
         quickJumpText: true,
-        showProcess: false
+        showProcess: false,
+        total: 0
     };
 
     constructor(props) {
         super(props);
         this.state = {
             current: this.props.current,
+            totalPage: Math.ceil(this.props.total / this.props.pageSize)
         };
         this.clickLeftBtn = this.clickLeftBtn.bind(this);
         this.updateActivePage = this.updateActivePage.bind(this);
     }
 
     updateActivePage(page, event) {
+        const { current } = this.state;
+        if (page === current) {
+            return;
+        }
         this.setState({
             current: page
+        }, () => {
+            this.props.onChange && this.props.onChange(page, event)
         });
-        this.props.onChange && this.props.onChange(page, event)
     }
 
     clickLeftBtn(event) {
@@ -162,9 +170,8 @@ export default class Pagination extends Component<PaginationProps, PaginationSta
     }
 
     renderMiniPagination () {
-        const { total, pageSize } = this.props;
+        const { totalPage: pageTotal } = this.state;
         /*计算总页数*/
-        const pageTotal = Math.ceil(total / pageSize);
         const arrayPage = Array.apply(Array, Array(pageTotal)).map((v,k) => k + 1);
         return (
             <div className="esy-pagination-mini">
@@ -179,6 +186,19 @@ export default class Pagination extends Component<PaginationProps, PaginationSta
 
     }
 
+    /*判断组件外动态改变current的情况
+    * 外界改变了total值导致
+    * */
+    componentWillReceiveProps(nextProps) {
+        const { current = 1, totalPage, total, pageSize } = nextProps;
+        if ((current !== this.state.current && current <= this.state.totalPage && current >= 1) || (Math.ceil(total / pageSize) !== totalPage)) {
+            this.setState({
+                current: nextProps.current,
+                totalPage: Math.ceil(total / pageSize)
+            })
+        }
+    }
+
     render() {
         const {
             type = 'mini',
@@ -187,8 +207,7 @@ export default class Pagination extends Component<PaginationProps, PaginationSta
             showProcess = false,
             style = {}
         } = this.props;
-        const { current } = this.state;
-        const pageTotal = Math.ceil(total / pageSize);
+        const { current, totalPage: pageTotal } = this.state;
         return (
             <div className="esy-pagination" style={style}>
                 {

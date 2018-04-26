@@ -6,10 +6,7 @@ interface ModuleProps {
     title?: string;
 }
 
-export default class Module extends Component<ModuleProps> {
-    constructor(props) {
-        super(props)
-    }
+export default class Module extends Component<ModuleProps, any> {
     render() {
         const { title, children } = this.props;
         return (

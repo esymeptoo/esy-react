@@ -9,11 +9,13 @@ export default class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            inputValue: 'test'
+            inputValue: 'test',
+            total: 100
         };
         this.handleClick = this.handleClick.bind(this);
         this.handlePaginationChange = this.handlePaginationChange.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleEnter = this.handleEnter.bind(this);
     }
     handleClick() {
         console.log('i am a hook')
@@ -27,6 +29,18 @@ export default class App extends Component {
         this.setState({
             inputValue: val
         })
+    }
+
+    handleEnter() {
+
+    }
+
+    componentDidMount() {
+        setTimeout(() => {
+            this.setState({
+                total: this.state.total + 90
+            })
+        }, 3000);
     }
 
     render() {
@@ -51,11 +65,11 @@ export default class App extends Component {
                     />
                     <Button
                         label={
-                            <span>危险</span>
+                            <span>特大</span>
                         }
-                        type="danger"
+                        type="primary"
                         size="large"
-                        disabled={true}
+                        disabled={false}
                     />
                 </Module>
                 <Module
@@ -74,7 +88,7 @@ export default class App extends Component {
                     <div style={{textAlign: 'center'}}>
                         <Pagination
                             type="mini"
-                            total={170}
+                            total={this.state.total}
                             pageSize={9}
                             current={1}
                             showNum={6}
@@ -96,13 +110,29 @@ export default class App extends Component {
                     title="表单"
                 >
                     <Input
+                        style={{width: '300px'}}
+                        type="text"
                         value={inputValue}
                         onChange={this.handleInputChange}
                         placeholder="简单的input标签"
                         autoFocus={true}
                         size="large"
-                        onPressEnter={() => {console.log('>>>')}}
-                        disabled={false}/>
+                        onPressEnter={(value) => {console.log('enter input' + value)}}
+                        disabled={false}
+                        search={true}
+                    />
+                    <Input
+                        type="text"
+                        value={inputValue}
+                        onChange={this.handleInputChange}
+                        placeholder="简单的input标签"
+                        autoFocus={true}
+                        size="small"
+                        onPressEnter={(value) => {console.log('enter input' + value)}}
+                        disabled={false}
+                        search={true}
+                        onEnterSearch={(value) => {console.log('click search btn' + value)}}
+                    />
                 </Module>
             </div>
         )
