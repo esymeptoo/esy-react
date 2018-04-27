@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import clx from 'classnames';
 
-import { esy_util as _ } from '../public/util';
+import {esy_util as _} from '../public/util';
 
 export interface OptGroupProps {
     size?: string;
@@ -12,6 +12,7 @@ export interface OptGroupProps {
     changeValue?: (value: string, label: string) => void;
     changeFocus?: (value: boolean) => void;
 }
+
 export default class OptGroup extends Component<OptGroupProps, any> {
 
     static propTypes = {
@@ -45,7 +46,7 @@ export default class OptGroup extends Component<OptGroupProps, any> {
                         changeFocus: changeFocus
                     }
                 }
-            } else  {
+            } else {
                 return {
                     ...item,
                     props: {
@@ -57,12 +58,14 @@ export default class OptGroup extends Component<OptGroupProps, any> {
                 }
             }
         });
-        return new_children.length > 0 ? <div className={clx(prefixCls, {
-            [`${prefixCls}-${_.getSizeOfInput(size)}`]: size
-        }, className)}>
-            <ul>
-                {new_children}
-            </ul>
-        </div> : null
+        return new_children.length > 0 ? (
+            <div className={clx(prefixCls, {
+                [`${prefixCls}-${_.getSizeOfInput(size)}`]: size
+            }, className)}>
+                <ul>
+                    {new_children}
+                </ul>
+            </div>
+        ) : null
     }
 }
