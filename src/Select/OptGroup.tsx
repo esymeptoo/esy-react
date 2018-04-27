@@ -9,7 +9,7 @@ export interface OptGroupProps {
     prefixCls?: string;
     className?: string;
     value?: string;
-    changeValue?: (value: string) => void;
+    changeValue?: (value: string, label: string) => void;
     changeFocus?: (value: boolean) => void;
 }
 export default class OptGroup extends Component<OptGroupProps, any> {
@@ -25,9 +25,17 @@ export default class OptGroup extends Component<OptGroupProps, any> {
     };
 
     render() {
-        const { children, prefixCls, size, className, value, changeValue, changeFocus } = this.props;
+        const {
+            children,
+            prefixCls,
+            size,
+            className,
+            value,
+            changeValue,
+            changeFocus
+        } = this.props;
         const new_children = children.map(item => {
-            if (value == item.props.children) {
+            if (value == item.props.label || value == item.props.children) {
                 return {
                     ...item,
                     props: {

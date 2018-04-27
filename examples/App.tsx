@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Module from './Module';
 import Button from '../src/Button/Button';
 import Icon from '../src/Icon/Icon';
@@ -13,7 +13,7 @@ export default class App extends Component {
         this.state = {
             inputValue: 'test',
             total: 100,
-            selectValue: '扬州',
+            selectValue: '001',
             selectArr: []
         };
         this.handleClick = this.handleClick.bind(this);
@@ -22,6 +22,7 @@ export default class App extends Component {
         this.handleEnter = this.handleEnter.bind(this);
         this.handleSelectChange = this.handleSelectChange.bind(this);
     }
+
     handleClick() {
         console.log('i am a hook')
     }
@@ -36,9 +37,11 @@ export default class App extends Component {
         })
     }
 
-    handleSelectChange(value) {
+    handleSelectChange(value, label) {
         this.setState({
-            selectValue: value
+            selectValue: label
+        }, () => {
+            console.log('change selectValue: ' + value + '\n' + 'change selectLabel: ' + label)
         })
     }
 
@@ -65,7 +68,7 @@ export default class App extends Component {
     }
 
     render() {
-        const { inputValue, selectArr } = this.state;
+        const {inputValue, selectArr} = this.state;
         return (
             <>
                 <Module
@@ -138,7 +141,9 @@ export default class App extends Component {
                         placeholder="简单的input标签"
                         autoFocus={true}
                         size="large"
-                        onPressEnter={(value) => {console.log('enter input:' + value)}}
+                        onPressEnter={(value) => {
+                            console.log('enter input:' + value)
+                        }}
                         disabled={false}
                         search={true}
                     />
@@ -149,10 +154,14 @@ export default class App extends Component {
                         placeholder="简单的input标签"
                         autoFocus={true}
                         size="small"
-                        onPressEnter={(value) => {console.log('enter input:' + value)}}
+                        onPressEnter={(value) => {
+                            console.log('enter input:' + value)
+                        }}
                         disabled={false}
                         search={true}
-                        onEnterSearch={(value) => {console.log('click search btn:' + value)}}
+                        onEnterSearch={(value) => {
+                            console.log('click search btn:' + value)
+                        }}
                     />
                 </Module>
                 <Module
@@ -170,17 +179,23 @@ export default class App extends Component {
                         }
                     </Select>
 
-                    <Button label="新增option" type="primary" onClick={() => {this.setState({
-                        selectValue: 'haha',
-                        selectArr: (() => {
-                            const temp = this.state.selectArr;
-                            temp.push({
-                                value: '上海',
-                                id: Math.floor(Math.random() * 1000)
-                            });
-                            return temp;
-                        })()
-                    })}}/>
+                    <Button
+                        label="新增option"
+                        type="primary"
+                        style={{marginLeft: '0'}}
+                        onClick={() => {
+                            this.setState({
+                                selectValue: '002',
+                                selectArr: (() => {
+                                    const temp = this.state.selectArr;
+                                    temp.push({
+                                        value: '上海',
+                                        id: `${Math.floor(Math.random() * 1000)}`
+                                    });
+                                    return temp;
+                                })()
+                            })
+                        }}/>
                 </Module>
             </>
         )

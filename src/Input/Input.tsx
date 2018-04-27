@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import './Input.less';
 import clx from 'classnames';
@@ -78,7 +78,7 @@ class Input extends Component<InputProps, any> {
     }
 
     handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-        const { onPressEnter, onKeyDown } = this.props;
+        const {onPressEnter, onKeyDown} = this.props;
         if (event.keyCode === 13 && onPressEnter) {
             onPressEnter(event.target.value);
         }
@@ -95,7 +95,7 @@ class Input extends Component<InputProps, any> {
     };
 
     componentDidMount() {
-        const { autoFocus = false, select = false } = this.props;
+        const {autoFocus = false, select = false} = this.props;
         if (autoFocus) {
             this.focus();
         }
@@ -106,7 +106,7 @@ class Input extends Component<InputProps, any> {
     }
 
     getSizeOfInput(size) {
-        switch(size) {
+        switch (size) {
             case 'mini':
                 return 'mi';
             case 'small':
@@ -126,7 +126,7 @@ class Input extends Component<InputProps, any> {
     * 当前的栗子是搜索 以后会补全icon等情况  prefix和suffix情况
     * */
     renderOuter(children) {
-        const { search } = this.props;
+        const {search} = this.props;
 
         if (!search) {
             return children;
@@ -145,7 +145,7 @@ class Input extends Component<InputProps, any> {
     }
 
     renderInputLabel(children: React.ReactHTMLElement<any>) {
-        const { addonBefore, addonAfter } = this.props;
+        const {addonBefore, addonAfter} = this.props;
 
     }
 
@@ -162,7 +162,9 @@ class Input extends Component<InputProps, any> {
             'onChange', 'onPressEnter', 'size', 'className', 'prefixCls', 'onEnterSearch', 'search'
         ]);
         return <input
-            ref={(el) => { this.input = el }}
+            ref={(el) => {
+                this.input = el
+            }}
             className={clx(prefixCls, className, {
                 [`${prefixCls}-disabled`]: disabled,
                 [`${prefixCls}-${this.getSizeOfInput(size)}`]: size

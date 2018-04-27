@@ -25,7 +25,7 @@ export type SelectValue = string | any[] | LabelValue | LabelValue[];
 
 export interface SelectProps extends CommonSelectProps{
     defaultValue?: string;
-    onChange?: (value: SelectValue) => void;
+    onChange?: (value: string, label: string) => void;
 }
 
 export interface SelectState {
@@ -42,7 +42,7 @@ export default class Select extends Component<SelectProps, SelectState> {
         super(props);
         this.state = {
             focused: false,
-            value: this.props.defaultValue
+            value: this.props.defaultValue || ''
         };
         this.clickHeader = this.clickHeader.bind(this);
         this.changeValue = this.changeValue.bind(this);
@@ -71,14 +71,14 @@ export default class Select extends Component<SelectProps, SelectState> {
         e.nativeEvent.stopImmediatePropagation()
     }
 
-    changeValue(value) {
+    changeValue(value, label) {
         this.setState({
             value: value,
             focused: false
         }, () => {
-            this.props.onChange && this.props.onChange(value);
+            // this.props.onChange && this.props.onChange(value, label);
             if (this.props.onChange) {
-                this.props.onChange(value)
+                this.props.onChange(value, label);
             } else {
                 console.log('you should register onChange function')
             }
@@ -93,10 +93,16 @@ export default class Select extends Component<SelectProps, SelectState> {
 
     renderSelect() {
         const { defaultValue } = this.props;
+        const targetSelectObj = this.props.children.find(item => {
+            return item.props.label === defaultValue
+        });
         const { focused } = this.state;
         return (
             <div className="esy-select-value" onClick={this.clickHeader}>
-                {defaultValue}
+                {
+                    targetSelectObj ? targetSelectObj.props.children : ''
+                    // defaultValue
+                }
                 <i className={clx('esy-select-position', {
                     [`esy-select-position-down`]: focused
                 })}/>

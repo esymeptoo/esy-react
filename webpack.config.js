@@ -1,11 +1,10 @@
 const path = require('path'),
     env = process.env.NODE_ENV,
-    autoprefixer = require('autoprefixer'),
     HtmlWebpackPlugin = require('html-webpack-plugin'),
     webpack = require('webpack'),
     ExtractTextPlugin = require("extract-text-webpack-plugin")
-    // extractVendor = new ExtractTextPlugin('css/vendor.css'), // 抽取bootstrap和font-awesome公共样式
-    // extractStyle = new ExtractTextPlugin('css/style.css'); // 抽取自定义样式
+// extractVendor = new ExtractTextPlugin('css/vendor.css'), // 抽取bootstrap和font-awesome公共样式
+// extractStyle = new ExtractTextPlugin('css/style.css'); // 抽取自定义样式
 
 const _postCss = {
     sourceMap: true,
@@ -14,20 +13,21 @@ const _postCss = {
             browsers: ['last 15 versions']
         })
     ]
-}
+};
 module.exports = {
     entry: process.env.NODE_ENV === 'production' ? {
         index: path.join(__dirname, 'examples/index.tsx'),
+        page: path.join(__dirname, 'examples/index.tsx'),
         vendor: ['react', 'react-dom']
     } : [
-            'webpack-dev-server/client?http://localhost:8080',
-            'webpack/hot/only-dev-server',
-            path.join(__dirname, './examples/index.tsx')
-        ],
+        'webpack-dev-server/client?http://localhost:8080',
+        'webpack/hot/only-dev-server',
+        path.join(__dirname, './examples/index.tsx')
+    ],
     output: {
         filename: 'static/[name].js',
         path: path.resolve(__dirname, './build'),
-        publicPath: '/',
+        publicPath: env === 'dev' ? '/' : '../',
     },
     resolve: {
         modules: ['node_modules', path.join(__dirname, '../node_modules')],
@@ -42,19 +42,6 @@ module.exports = {
         rules: [{
             test: /\.less$/,
             use: env === 'dev' ? ['style-loader', 'css-loader', {
-                loader: 'postcss-loader',
-                options: {
-                    plugins: [require('autoprefixer')({
-                        browsers: [
-                            'Android > 4',
-                            'iOS > 8'
-                        ]
-                    })]
-                }
-            }, 'less-loader']
-            : ExtractTextPlugin.extract({
-                fallback: 'style-loader',
-                use: ['css-loader', {
                     loader: 'postcss-loader',
                     options: {
                         plugins: [require('autoprefixer')({
@@ -64,9 +51,22 @@ module.exports = {
                             ]
                         })]
                     }
-                }, 'less-loader'],
-                publicPath: '/static'
-            })
+                }, 'less-loader']
+                : ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: ['css-loader', {
+                        loader: 'postcss-loader',
+                        options: {
+                            plugins: [require('autoprefixer')({
+                                browsers: [
+                                    'Android > 4',
+                                    'iOS > 8'
+                                ]
+                            })]
+                        }
+                    }, 'less-loader'],
+                    publicPath: '/static'
+                })
         }, {
             test: /\.scss/,
             use: env === 'dev' ? ['style-loader', 'css-loader', {
@@ -120,6 +120,10 @@ module.exports = {
             template: './index.html',
             filename: 'html/index.html'
         }),
+        new HtmlWebpackPlugin({
+            template: 'page.html',
+            filename: 'html/page.html'
+        }),
         new ExtractTextPlugin('static/[name].css'),
         new webpack.DefinePlugin({
             'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
@@ -136,16 +140,20 @@ module.exports = {
             minChunks: Infinity,
         }),
     ] : [
-            new HtmlWebpackPlugin({
-                template: 'index.html',
-                filename: 'html/index.html'
-            }),
-            new webpack.HotModuleReplacementPlugin(),
-            new webpack.NamedModulesPlugin(),
-            new webpack.DefinePlugin({
-                'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-            }),
-        ],
+        new HtmlWebpackPlugin({
+            template: 'index.html',
+            filename: 'html/index.html'
+        }),
+        new HtmlWebpackPlugin({
+            template: 'page.html',
+            filename: 'html/page.html'
+        }),
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NamedModulesPlugin(),
+        new webpack.DefinePlugin({
+            'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+        }),
+    ],
     devServer: {
         contentBase: path.resolve(__dirname, 'build'),
         hot: true,
