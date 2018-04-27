@@ -9,6 +9,8 @@ export interface OptGroupProps {
     prefixCls?: string;
     className?: string;
     value?: string;
+    changeValue?: (value: string) => void;
+    changeFocus?: (value: boolean) => void;
 }
 export default class OptGroup extends Component<OptGroupProps, any> {
 
@@ -23,14 +25,16 @@ export default class OptGroup extends Component<OptGroupProps, any> {
     };
 
     render() {
-        const { children, prefixCls, size, className, value } = this.props;
+        const { children, prefixCls, size, className, value, changeValue, changeFocus } = this.props;
         const new_children = children.map(item => {
             if (value == item.props.children) {
                 return {
                     ...item,
                     props: {
                         ...item.props,
-                        active: true
+                        active: true,
+                        changeValue: changeValue,
+                        changeFocus: changeFocus
                     }
                 }
             } else  {
@@ -38,17 +42,19 @@ export default class OptGroup extends Component<OptGroupProps, any> {
                     ...item,
                     props: {
                         ...item.props,
-                        active: false
+                        active: false,
+                        changeValue: changeValue,
+                        changeFocus: changeFocus
                     }
                 }
             }
         });
-        return <div className={clx(prefixCls, {
+        return new_children.length > 0 ? <div className={clx(prefixCls, {
             [`${prefixCls}-${_.getSizeOfInput(size)}`]: size
         }, className)}>
             <ul>
                 {new_children}
             </ul>
-        </div>
+        </div> : null
     }
 }

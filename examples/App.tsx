@@ -12,12 +12,15 @@ export default class App extends Component {
         super(props);
         this.state = {
             inputValue: 'test',
-            total: 100
+            total: 100,
+            selectValue: '扬州',
+            selectArr: []
         };
         this.handleClick = this.handleClick.bind(this);
         this.handlePaginationChange = this.handlePaginationChange.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleEnter = this.handleEnter.bind(this);
+        this.handleSelectChange = this.handleSelectChange.bind(this);
     }
     handleClick() {
         console.log('i am a hook')
@@ -33,6 +36,12 @@ export default class App extends Component {
         })
     }
 
+    handleSelectChange(value) {
+        this.setState({
+            selectValue: value
+        })
+    }
+
     handleEnter() {
 
     }
@@ -40,13 +49,23 @@ export default class App extends Component {
     componentDidMount() {
         setTimeout(() => {
             this.setState({
-                total: this.state.total + 90
+                total: this.state.total + 90,
+                selectArr: [
+                    {
+                        value: '扬州',
+                        id: '001'
+                    },
+                    {
+                        value: '南京',
+                        id: '002'
+                    }
+                ]
             })
         }, 3000);
     }
 
     render() {
-        const { inputValue } = this.state;
+        const { inputValue, selectArr } = this.state;
         return (
             <>
                 <Module
@@ -137,17 +156,31 @@ export default class App extends Component {
                     />
                 </Module>
                 <Module
-                    title="select"
+                    title="选择器"
                 >
                     <Select
-                        defaultValue="测试option1"
+                        defaultValue={this.state.selectValue}
+                        size="small"
+                        onChange={this.handleSelectChange}
                     >
-                        <Option label="key1">测试option1</Option>
-                        <Option label="key2">测试option2</Option>
-                        <Option label="key3">测试option3</Option>
-                        <Option label="key4">测试option4</Option>
-                        <Option label="key5">测试option5</Option>
+                        {
+                            selectArr.map(item => {
+                                return <Option label={item.id} key={item.id}>{item.value}</Option>
+                            })
+                        }
                     </Select>
+
+                    <Button label="新增option" type="primary" onClick={() => {this.setState({
+                        selectValue: 'haha',
+                        selectArr: (() => {
+                            const temp = this.state.selectArr;
+                            temp.push({
+                                value: '上海',
+                                id: Math.floor(Math.random() * 1000)
+                            });
+                            return temp;
+                        })()
+                    })}}/>
                 </Module>
             </>
         )

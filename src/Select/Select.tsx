@@ -5,6 +5,7 @@ import './Select.less';
 import OptGroup from './OptGroup';
 
 import { esy_util as _ }from '../public/util';
+import * as _ from 'lodash';
 
 export interface CommonSelectProps {
     prefixCls?: string;
@@ -44,6 +45,7 @@ export default class Select extends Component<SelectProps, SelectState> {
             value: this.props.defaultValue
         };
         this.clickHeader = this.clickHeader.bind(this);
+        this.changeValue = this.changeValue.bind(this);
     }
 
     static propTypes = {
@@ -69,6 +71,26 @@ export default class Select extends Component<SelectProps, SelectState> {
         e.nativeEvent.stopImmediatePropagation()
     }
 
+    changeValue(value) {
+        this.setState({
+            value: value,
+            focused: false
+        }, () => {
+            this.props.onChange && this.props.onChange(value);
+            if (this.props.onChange) {
+                this.props.onChange(value)
+            } else {
+                console.log('you should register onChange function')
+            }
+        });
+    }
+
+    changeFocus(value) {
+        this.setState({
+            focused: value
+        })
+    }
+
     renderSelect() {
         const { defaultValue } = this.props;
         const { focused } = this.state;
@@ -87,17 +109,28 @@ export default class Select extends Component<SelectProps, SelectState> {
         const { focused, value } = this.state;
         return <OptGroup size={size} className={clx({
             'esy-optGroup-focused': focused
-        })} value={value}>
+        })} value={value} changeValue={this.changeValue} changeFocus={this.changeFocus}>
             {children}
         </OptGroup>
     }
 
     componentDidMount() {
+        //事件冒泡使下拉框消失
         document.addEventListener('click', () => {
             this.setState({
                 focused: false
             })
         })
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.defaultValue !== this.state.value) {
+            this.setState({
+                value: nextProps.defaultValue
+            })
+        } else {
+            console.log('no need to update')
+        }
     }
 
     render() {
