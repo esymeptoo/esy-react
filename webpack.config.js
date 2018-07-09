@@ -159,6 +159,6 @@ module.exports = {
         hot: true,
         noInfo: false
     },
-    // devtool: 'source-map',
+    devtool: 'source-map',
 
 };

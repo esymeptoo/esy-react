@@ -68,7 +68,7 @@ export default class App extends Component {
     }
 
     render() {
-        const {inputValue, selectArr} = this.state;
+        const { inputValue, selectArr } = this.state;
         return (
             <>
                 <Module

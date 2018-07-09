@@ -159,8 +159,8 @@ class Input extends Component<InputProps, any> {
 
         //排除一些已经定义的属性
         const new_props = omit(this.props, [
-            'onChange', 'onPressEnter', 'size', 'className', 'prefixCls', 'onEnterSearch', 'search'
-        ]);
+        'onChange', 'onPressEnter', 'size', 'className', 'prefixCls', 'onEnterSearch', 'search'
+      ]);
         return <input
             ref={(el) => {
                 this.input = el
