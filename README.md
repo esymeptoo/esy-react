@@ -1,7 +1,7 @@
 ## esy-react组件库(PS: 纯属瞎几把搞, OS: 什么傻吊东西)
 
 
-### 所得及所想
+### 所得及所想~
 #### 关于react组件的设计思想
 
 1. state数据的问题：因为constructor只执行一次，所以如果存在state的值是通过props计算所得，<br><br>需在componentWillReceiveProps钩子中重新计算并赋值
